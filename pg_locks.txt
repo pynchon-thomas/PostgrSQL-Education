@@ -1,0 +1,23 @@
+   locktype    | database | relation | page | tuple | virtualxid | transactionid | classid | objid | objsubid | virtualtransaction |  pid  |       mode       | granted | fastpath |           waitstart           
+---------------+----------+----------+------+-------+------------+---------------+---------+-------+----------+--------------------+-------+------------------+---------+----------+-------------------------------
+ relation      |    16489 |    16497 |      |       |            |               |         |       |          | 6/46               | 24590 | RowExclusiveLock | t       | t        | 
+ relation      |    16489 |    16495 |      |       |            |               |         |       |          | 6/46               | 24590 | RowExclusiveLock | t       | t        | 
+ relation      |    16489 |    16490 |      |       |            |               |         |       |          | 6/46               | 24590 | RowExclusiveLock | t       | t        | 
+ virtualxid    |          |          |      |       | 6/46       |               |         |       |          | 6/46               | 24590 | ExclusiveLock    | t       | t        | 
+ relation      |    16489 |    16497 |      |       |            |               |         |       |          | 5/7                | 24348 | RowExclusiveLock | t       | t        | 
+ relation      |    16489 |    16495 |      |       |            |               |         |       |          | 5/7                | 24348 | RowExclusiveLock | t       | t        | 
+ relation      |    16489 |    16490 |      |       |            |               |         |       |          | 5/7                | 24348 | RowExclusiveLock | t       | t        | 
+ virtualxid    |          |          |      |       | 5/7        |               |         |       |          | 5/7                | 24348 | ExclusiveLock    | t       | t        | 
+ relation      |    16489 |    12073 |      |       |            |               |         |       |          | 4/274              | 24332 | AccessShareLock  | t       | t        | 
+ relation      |    16489 |    16497 |      |       |            |               |         |       |          | 4/274              | 24332 | RowExclusiveLock | t       | t        | 
+ relation      |    16489 |    16495 |      |       |            |               |         |       |          | 4/274              | 24332 | RowExclusiveLock | t       | t        | 
+ relation      |    16489 |    16490 |      |       |            |               |         |       |          | 4/274              | 24332 | RowExclusiveLock | t       | t        | 
+ virtualxid    |          |          |      |       | 4/274      |               |         |       |          | 4/274              | 24332 | ExclusiveLock    | t       | t        | 
+ tuple         |    16489 |    16490 |    0 |     7 |            |               |         |       |          | 5/7                | 24348 | ExclusiveLock    | f       | f        | 2023-05-05 02:17:56.988031+05
+ transactionid |          |          |      |       |            |         53601 |         |       |          | 5/7                | 24348 | ExclusiveLock    | t       | f        | 
+ transactionid |          |          |      |       |            |         53598 |         |       |          | 4/274              | 24332 | ExclusiveLock    | t       | f        | 
+ transactionid |          |          |      |       |            |         53600 |         |       |          | 6/46               | 24590 | ExclusiveLock    | t       | f        | 
+ transactionid |          |          |      |       |            |         53598 |         |       |          | 6/46               | 24590 | ShareLock        | f       | f        | 2023-05-05 02:16:54.03731+05
+ tuple         |    16489 |    16490 |    0 |     7 |            |               |         |       |          | 6/46               | 24590 | ExclusiveLock    | t       | f        | 
+(19 rows)
+
