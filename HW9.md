@@ -39,6 +39,41 @@ __поочередно запускаем команду на обновлени
 
 __кроме того что мы видим блокироваки на уровне таблицы и собстьевнного номера транзакции(RowExclusiveLock и ExclusiveLock), есть блокировка на уровне версии строк(tuple), которая есть и в режиме ожидания получения блокировки, так как мы осуществляем UPDATE строки. СУБД атоматически использует блокировку на уровне строк в зависимости от контеста__
 
+> Воспроизведите взаимоблокировку трех транзакций. Можно ли разобраться в ситуации постфактум, изучая журнал сообщений?
+
+* __в первой сессии:__
+<pre>locks=# begin;
+BEGIN
+locks=*# UPDATE accounts SET amount = amount + 100 WHERE acc_no = 1;
+UPDATE 1
+</pre>
+* __во второй сессии:__
+<pre>locks=# UPDATE accounts SET amount = amount + 100 WHERE acc_no = 1
+;
+</pre>
+* __в первой сессии:__
+<pre>locks=*# UPDATE accounts SET amount = amount + 100 WHERE acc_no = 2;
+UPDATE 1
+</pre>
+* __в третьей сессии:__
+<pre>ocks=# begin;
+BEGIN
+locks=*# UPDATE accounts SET amount = amount + 100 WHERE acc_no = 2
+;
+UPDATE 1
+locks=*# UPDATE accounts SET amount = amount + 100 WHERE acc_no = 1
+;
+ERROR:  deadlock detected
+DETAIL:  Process 24590 waits for ExclusiveLock on tuple (0,11) of relation 16490 of database 16489; blocked by process 24348.
+Process 24348 waits for ShareLock on transaction 53602; blocked by process 24332.
+Process 24332 waits for ShareLock on transaction 53604; blocked by process 24590.
+HINT:  See server log for query details.</pre>
+
+__СУБД в атоматическом режиме определяет ситуацию с deadlock-ом. Информации которая пишется в лог при обноружении данной ситуации в принципе достаточно понять какие процессы лочили друг друга и очереди котрые они выполняли при этом то же логируются в журнал__
+
+> Могут ли две транзакции, выполняющие единственную команду UPDATE одной и той же таблицы (без where), заблокировать друг друга?
+
+__если про deadlock, то нет__
 
 
 
